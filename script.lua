@@ -1,4 +1,6 @@
+bit=require("bit32")
 lpeg=require("lpeg")
+print(bit.bor(8,4))
 print("hello there")
 x=lpeg.match(lpeg.P("A"),"Aez")
 print(x)

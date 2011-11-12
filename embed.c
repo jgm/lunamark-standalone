@@ -17,6 +17,7 @@ int main()
     // load the libs
     luaL_openlibs(L);
     luaopen_lpeg(L);
+    luaopen_bit32(L);
 
     //run a Lua scrip here
     luaL_dofile(L,"script.lua");

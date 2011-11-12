@@ -10,7 +10,7 @@ lpeg.o : lpeg.c lpeg.h
 $(BIT32).o : $(BIT32).c
 
 embed: embed.c script.lua lpeg.o $(BIT32).o
-	$(CC) -o $@ $< lpeg.o -llua
+	$(CC) -o $@ $< lpeg.o $(BIT32).o -llua
 
 clean:
 	rm $(ALL)
