@@ -9,11 +9,23 @@
 #include "lpeg.h"
 #include "script.squished.lub.embed"
 
-int main()
+int main( int argc, char *argv[] )
 {
     int s=0;
 
     lua_State *L = lua_open();
+
+    // command line args
+    lua_newtable(L);
+    if (argc > 0) {
+      int i;
+      for (i = 1; i < argc; i++) {
+        lua_pushnumber(L, i);
+        lua_pushstring(L, argv[i]);
+        lua_rawset(L, -3);
+      }
+    }
+    lua_setglobal(L, "arg");
 
     // load the libs
     luaL_openlibs(L);
@@ -21,6 +33,7 @@ int main()
     luaopen_unicode(L);
 
     luaL_loadbuffer(L, script_squished_lub, script_squished_lub_len, "script_squished_lub");
+
     if (lua_pcall(L, 0, LUA_MULTRET, 0) != 0) {
       lua_error(L);
     }
