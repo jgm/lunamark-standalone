@@ -9,10 +9,11 @@
 #include "lpeg.h"
 #include "main.squished.lub.embed"
 
+int luaopen_lpeg (lua_State *L);
+int luaopen_unicode (lua_State *L);
+
 int main( int argc, char *argv[] )
 {
-    int s=0;
-
     lua_State *L = lua_open();
 
     /* command line args */
