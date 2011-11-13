@@ -2,7 +2,7 @@ OBJS=lpeg.o slnunico.o
 COPT= -O2 -DNDEBUG
 CWARNS= -Wall -Wextra -pedantic
 CC=gcc $(COPT) $(CWARNS) -I$(LUADIR) -L$(LUADIR)
-LUADIR=luasrc
+LUADIR=lua
 
 lunamark: lunamark.c main.squished.lua.embed $(OBJS) $(LUADIR)/liblua.a
 	$(CC) -o $@ $< $(OBJS) -llua -lm -ldl
