@@ -19,7 +19,7 @@ $(LUADIR)/liblua.a : $(wildcard $(LUADIR)/*.h) $(wildcard $(LUADIR)/*.c) $(LUADI
 	make liblua.a -C $(LUADIR) MYCFLAGS=-DLUA_USE_LINUX
 	# note: LUA_USE_LINUX is recommended for linux, osx, freebsd
 
-main.squished.lua : src/main.lua
+main.squished.lua : src/main.lua $(wildcard src/*.lua) $(wildcard src/*/*.lua) $(wildcard src/*/*/*.lua)
 	(cd src && lua ../squish.lua)
 
 lpeg.o : lpeg.c lpeg.h $(LUADIR)/liblua.a
@@ -51,5 +51,5 @@ bench: ${testfile}
 
 clean:
 	make -C $(LUADIR) clean
-	rm $(lunamarkS) $(OBJS) lunamark main.squished.lua.embed main.squished.lua lunamark.1
+	rm $(lunamarkS) $(OBJS) lunamark main.squished.lua.embed lunamark.1
 	rm ${benchtext} ${testfile}
