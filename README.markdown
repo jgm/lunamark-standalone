@@ -7,7 +7,7 @@ it is easy to add new writers or modify existing ones. The markdown parser is
 written using a PEG grammar and can also be modified by the user.
 
 This is a "standalone" version of lunamark. (See also the [lua library
-version](https://github.com/jgm/lunamark). It is written in ANSI C and lua,
+version](https://github.com/jgm/lunamark).) It is written in ANSI C and lua,
 and compiles to an executable with no external dependencies. It is as portable
 as lua and has very good performance. It is about the same speed as the
 author's own C library [peg-markdown](http://github.com/jgm/peg-markdown), an
