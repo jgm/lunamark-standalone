@@ -15,7 +15,7 @@ int main( int argc, char *argv[] )
 
     lua_State *L = lua_open();
 
-    // command line args
+    /* command line args */
     lua_newtable(L);
     if (argc > 0) {
       int i;
@@ -27,7 +27,7 @@ int main( int argc, char *argv[] )
     }
     lua_setglobal(L, "arg");
 
-    // load the libs
+    /* load the libs */
     luaL_openlibs(L);
     luaopen_lpeg(L);
     luaopen_unicode(L);
@@ -37,8 +37,6 @@ int main( int argc, char *argv[] )
     if (lua_pcall(L, 0, LUA_MULTRET, 0) != 0) {
       lua_error(L);
     }
-
-//    printf("\nI am done with Lua in C.\n");
 
     lua_close(L);
 
