@@ -5,6 +5,9 @@ CC=gcc $(COPT) $(CWARNS) -I$(LUADIR) -L$(LUADIR)
 LUADIR=lua
 PROG ?= ./lunamark
 TESTOPTS ?= --tidy
+NUM ?= 25
+benchtext=benchtext.txt
+testfile=tmptest.txt
 
 .PHONY : all test
 all : lunamark lunamark.1
@@ -32,6 +35,21 @@ lunamark.1 : src/main.lua lunamark
 test:
 	LUNAMARK_EXTENSIONS="" scripts/shtest ${TESTOPTS} -p ${PROG} ${OPTS}
 
+${benchtext}:
+	for i in tests/Markdown_1.0.3/*.test; do sed -e '1,/<<</d;/>>>/,$$d' "$$i" >> $@; echo >> $@.txt; done
+
+${testfile}: ${benchtext}
+	cat < /dev/null > ${testfile} ; \
+	x=${NUM}; \
+	while [ $$x -gt 0 ]; do \
+		cat $< >> $@; \
+		x=$$(($$x-1)); \
+	done
+
+bench: ${testfile}
+	time -p ${PROG} < ${testfile} > /dev/null
+
 clean:
 	make -C $(LUADIR) clean
 	rm $(lunamarkS) $(OBJS) lunamark main.squished.lua.embed main.squished.lua lunamark.1
+	rm ${benchtext} ${testfile}
