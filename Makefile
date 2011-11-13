@@ -1,6 +1,6 @@
 CC=gcc
 OBJS=lpeg.o slnunico.o
-EMBEDS=script.lub.embed cosmo.lub.embed alt_getopt.lub.embed
+EMBEDS=re.lub.embed cosmo.lub.embed alt_getopt.lub.embed script.lub.embed 
 
 embed: embed.c $(EMBEDS) $(OBJS)
 	$(CC) -o $@ $< $(OBJS) -llua
