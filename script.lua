@@ -1,6 +1,6 @@
-bit=require("bit32")
 lpeg=require("lpeg")
-print(bit.bor(8,4))
+utf8=require("unicode.utf8")
+print(utf8.char(12345))
 print("hello there")
 x=lpeg.match(lpeg.P("A"),"Aez")
 print(x)

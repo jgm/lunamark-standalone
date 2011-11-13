@@ -18,7 +18,7 @@ int main()
     // load the libs
     luaL_openlibs(L);
     luaopen_lpeg(L);
-    luaopen_bit32(L);
+    luaopen_unicode(L);
 
     luaL_dostring(L, script_lua);
 
