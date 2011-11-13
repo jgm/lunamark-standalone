@@ -7,7 +7,7 @@
 #include <lualib.h>
 
 #include "lpeg.h"
-#include "script.squished.lub.embed"
+#include "main.squished.lub.embed"
 
 int main( int argc, char *argv[] )
 {
@@ -32,7 +32,7 @@ int main( int argc, char *argv[] )
     luaopen_lpeg(L);
     luaopen_unicode(L);
 
-    luaL_loadbuffer(L, script_squished_lub, script_squished_lub_len, "script_squished_lub");
+    luaL_loadbuffer(L, main_squished_lub, main_squished_lub_len, "main_squished_lub");
 
     if (lua_pcall(L, 0, LUA_MULTRET, 0) != 0) {
       lua_error(L);

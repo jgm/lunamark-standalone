@@ -1,5 +1,5 @@
-Main "script.lua"
-Output "script.squished.lua"
+Main "main.lua"
+Output "main.squished.lua"
 Module "re"
 Module "cosmo"
 Module "cosmo.grammar"
