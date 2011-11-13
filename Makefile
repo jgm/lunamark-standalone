@@ -1,9 +1,11 @@
 CC=gcc
 OBJS=lpeg.o slnunico.o
-EMBEDS=re.lub.embed cosmo.lub.embed alt_getopt.lub.embed script.lub.embed 
 
-embed: embed.c $(EMBEDS) $(OBJS)
+embed: embed.c script.squished.lub.embed $(OBJS)
 	$(CC) -o $@ $< $(OBJS) -llua
+
+script.squished.lua : script.lua
+	lua squish.lua
 
 lpeg.o : lpeg.c lpeg.h
 
@@ -16,4 +18,4 @@ slnunico.o : slnunico.c slnudata.c
 	xxd -i $< > $@
 
 clean:
-	rm $(EMBEDS) $(OBJS) embed
+	rm $(EMBEDS) $(OBJS) embed script.squished.lub.embed

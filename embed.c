@@ -7,11 +7,7 @@
 #include <lualib.h>
 
 #include "lpeg.h"
-#include "re.lub.embed"
-#include "alt_getopt.lub.embed"
-#include "cosmo.lub.embed"
-#include "lunamark.lub.embed"
-#include "script.lub.embed"
+#include "script.squished.lub.embed"
 
 int main()
 {
@@ -24,15 +20,7 @@ int main()
     luaopen_lpeg(L);
     luaopen_unicode(L);
 
-    luaL_loadbuffer(L, re_lub, re_lub_len, "re_lub");
-    luaL_loadbuffer(L, cosmo_lub, cosmo_lub_len, "cosmo_lub");
-    luaL_loadbuffer(L, alt_getopt_lub, alt_getopt_lub_len, "alt_getopt_lub");
-    luaL_loadbuffer(L, lunamark_lub, lunamark_lub_len, "lunamark_lub");
-    if (lua_pcall(L, 0, LUA_MULTRET, 0) != 0) {
-      lua_error(L);
-    }
-
-    luaL_loadbuffer(L, script_lub, script_lub_len, "script_lub");
+    luaL_loadbuffer(L, script_squished_lub, script_squished_lub_len, "script_squished_lub");
     if (lua_pcall(L, 0, LUA_MULTRET, 0) != 0) {
       lua_error(L);
     }
