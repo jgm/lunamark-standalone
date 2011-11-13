@@ -9,7 +9,7 @@ else
   PLATFORM=linux
 endif
 
-lunamark: lunamark.c main.squished.lub.embed $(OBJS) $(LUADIR)/lua
+lunamark: lunamark.c main.squished.lua.embed $(OBJS) $(LUADIR)/lua
 	$(CC) -o $@ $< $(OBJS) -llua -lm -ldl
 
 $(LUADIR)/lua : $(wildcard $(LUADIR)/*.h) $(wildcard $(LUADIR)/*.c) $(LUADIR)/Makefile
@@ -22,11 +22,11 @@ lpeg.o : lpeg.c lpeg.h $(LUADIR)/lua
 
 slnunico.o : slnunico.c slnudata.c
 
-%.lub : %.lua
-	luac -o $@ $<
+#%.lub : %.lua
+#	luac -o $@ $<
 
-%.lub.embed : %.lub
+%.embed : %
 	xxd -i $< > $@
 
 clean:
-	rm $(lunamarkS) $(OBJS) lunamark main.squished.lub.embed main.squished.lua
+	rm $(lunamarkS) $(OBJS) lunamark main.squished.lua.embed main.squished.lua
