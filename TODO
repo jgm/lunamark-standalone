@@ -1,9 +1,0 @@
-TODO: 
-
-luaL_loadbuffer expects to load a function.
-
-So, we need to make the thing a function, not a module.
-
-I think.  Anyway, it doesn't work when run outside the directory,
-and it's getting its modules from /usr/local.
-
