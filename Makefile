@@ -1,15 +1,13 @@
 CC=gcc
 OBJS=lpeg.o slnunico.o
-ALL=embed $(OBJS) script.lua.embed
-.PHONY: all
-all: $(ALL)
+EMBEDS=script.lub.embed cosmo.lub.embed alt_getopt.lub.embed
+
+embed: embed.c $(EMBEDS) $(OBJS)
+	$(CC) -o $@ $< $(OBJS) -llua
 
 lpeg.o : lpeg.c lpeg.h
 
 slnunico.o : slnunico.c slnudata.c
-
-script.lua.embed : luac.out
-	xxd -i $< > $@
 
 %.lub : %.lua
 	luac -o $@ $<
@@ -17,8 +15,5 @@ script.lua.embed : luac.out
 %.lub.embed : %.lub
 	xxd -i $< > $@
 
-embed: embed.c script.lub.embed $(OBJS)
-	$(CC) -o $@ $< $(OBJS) -llua
-
 clean:
-	rm $(ALL)
+	rm $(EMBEDS) $(OBJS) embed
