@@ -1,6 +1,8 @@
+subscript=require("subscript")
 lpeg=require("lpeg")
 utf8=require("unicode.utf8")
 print(utf8.char(12345))
 print("hello there")
 x=lpeg.match(lpeg.P("A"),"Aez")
 print(x)
+print(mysub("itit"))
