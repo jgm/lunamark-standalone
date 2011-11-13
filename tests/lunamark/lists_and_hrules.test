@@ -1,0 +1,17 @@
+lunamark
+<<<
++   item 1
+
+    +   item 2
+
+  *   *   *   *   *
+>>>
+<ul>
+<li><p>item 1</p>
+
+<ul>
+<li>item 2</li>
+</ul></li>
+</ul>
+
+<hr />

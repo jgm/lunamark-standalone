@@ -3,6 +3,11 @@ COPT= -O2 -DNDEBUG
 CWARNS= -Wall -Wextra -pedantic
 CC=gcc $(COPT) $(CWARNS) -I$(LUADIR) -L$(LUADIR)
 LUADIR=lua
+PROG ?= ./lunamark
+TESTOPTS ?= --tidy
+
+.PHONY : all test
+all : lunamark lunamark.1
 
 lunamark: lunamark.c main.squished.lua.embed $(OBJS) $(LUADIR)/liblua.a
 	$(CC) -o $@ $< $(OBJS) -llua -lm -ldl
@@ -21,6 +26,12 @@ slnunico.o : slnunico.c slnudata.c
 %.embed : %
 	xxd -i $< > $@
 
+lunamark.1 : src/main.lua lunamark
+	sed '1,/^@startman/d;/^@stopman/,$$d' $< | ./lunamark -Xdefinition_lists,notes,-smart -t man -s -d section=1,title=$(subst bin/,,$<),left_footer="${version}",date="${date}" -o $@
+
+test:
+	LUNAMARK_EXTENSIONS="" scripts/shtest ${TESTOPTS} -p ${PROG} ${OPTS}
+
 clean:
 	make -C $(LUADIR) clean
-	rm $(lunamarkS) $(OBJS) lunamark main.squished.lua.embed main.squished.lua
+	rm $(lunamarkS) $(OBJS) lunamark main.squished.lua.embed main.squished.lua lunamark.1
