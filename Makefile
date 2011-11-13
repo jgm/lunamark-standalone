@@ -18,8 +18,7 @@ $(LUADIR)/lua : $(wildcard $(LUADIR)/*.h) $(wildcard $(LUADIR)/*.c) $(LUADIR)/Ma
 main.squished.lua : src/main.lua
 	(cd src && lua ../squish.lua)
 
-lpeg.o : lpeg.c lpeg.h
-	$(CC) -o $@ $< -llua
+lpeg.o : lpeg.c lpeg.h $(LUADIR)/lua
 
 slnunico.o : slnunico.c slnudata.c
 
