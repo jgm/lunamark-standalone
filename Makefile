@@ -5,7 +5,7 @@ lunamark: lunamark.c main.squished.lub.embed $(OBJS)
 	$(CC) -o $@ $< $(OBJS) -llua
 
 main.squished.lua : src/main.lua
-	(cd src && lua squish.lua)
+	(cd src && lua ../squish.lua)
 
 lpeg.o : lpeg.c lpeg.h
 
