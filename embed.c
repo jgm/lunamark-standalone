@@ -7,7 +7,7 @@
 #include <lualib.h>
 
 #include "lpeg.h"
-#include "script.lua.embed"  // defines script_lua, contents of script.lua
+#include "script.lua.embed"  // defines script_lua, script_lua_len
 
 int main()
 {
@@ -20,7 +20,9 @@ int main()
     luaopen_lpeg(L);
     luaopen_unicode(L);
 
-    luaL_dostring(L, script_lua);
+    luaL_loadbuffer(L, script_lua, script_lua_len, "script_lua") || \
+      lua_pcall(L, 0, LUA_MULTRET, 0);
+    // luaL_dostring(L, script_lua);
 
     printf("\nI am done with Lua in C.\n");
 
