@@ -8,10 +8,16 @@ lpeg.o : lpeg.c lpeg.h
 
 slnunico.o : slnunico.c slnudata.c
 
-%.lua.embed : %.lua
+script.lua.embed : luac.out
 	xxd -i $< > $@
 
-embed: embed.c script.lua.embed $(OBJS)
+%.lub : %.lua
+	luac -o $@ $<
+
+%.lub.embed : %.lub
+	xxd -i $< > $@
+
+embed: embed.c script.lub.embed $(OBJS)
 	$(CC) -o $@ $< $(OBJS) -llua
 
 clean:
