@@ -18,4 +18,4 @@ slnunico.o : slnunico.c slnudata.c
 	xxd -i $< > $@
 
 clean:
-	rm $(lunamarkS) $(OBJS) lunamark main.squished.lub.embed
+	rm $(lunamarkS) $(OBJS) lunamark main.squished.lub.embed main.squished.lua
