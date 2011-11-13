@@ -3,30 +3,23 @@ COPT= -O2 -DNDEBUG
 CWARNS= -Wall -Wextra -pedantic
 CC=gcc $(COPT) $(CWARNS) -I$(LUADIR) -L$(LUADIR)
 LUADIR=luasrc
-ifeq ($(shell uname), Darwin)
-  PLATFORM=macosx
-else
-  PLATFORM=linux
-endif
 
-lunamark: lunamark.c main.squished.lua.embed $(OBJS) $(LUADIR)/lua
+lunamark: lunamark.c main.squished.lua.embed $(OBJS) $(LUADIR)/liblua.a
 	$(CC) -o $@ $< $(OBJS) -llua -lm -ldl
 
-$(LUADIR)/lua : $(wildcard $(LUADIR)/*.h) $(wildcard $(LUADIR)/*.c) $(LUADIR)/Makefile
-	make $(PLATFORM) -C $(LUADIR)
+$(LUADIR)/liblua.a : $(wildcard $(LUADIR)/*.h) $(wildcard $(LUADIR)/*.c) $(LUADIR)/Makefile
+	make liblua.a -C $(LUADIR)
 
 main.squished.lua : src/main.lua
 	(cd src && lua ../squish.lua)
 
-lpeg.o : lpeg.c lpeg.h $(LUADIR)/lua
+lpeg.o : lpeg.c lpeg.h $(LUADIR)/liblua.a
 
 slnunico.o : slnunico.c slnudata.c
-
-#%.lub : %.lua
-#	luac -o $@ $<
 
 %.embed : %
 	xxd -i $< > $@
 
 clean:
+	make -C $(LUADIR) clean
 	rm $(lunamarkS) $(OBJS) lunamark main.squished.lua.embed main.squished.lua
