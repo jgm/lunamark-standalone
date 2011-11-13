@@ -8,7 +8,8 @@ lunamark: lunamark.c main.squished.lua.embed $(OBJS) $(LUADIR)/liblua.a
 	$(CC) -o $@ $< $(OBJS) -llua -lm -ldl
 
 $(LUADIR)/liblua.a : $(wildcard $(LUADIR)/*.h) $(wildcard $(LUADIR)/*.c) $(LUADIR)/Makefile
-	make liblua.a -C $(LUADIR)
+	make liblua.a -C $(LUADIR) MYCFLAGS=-DLUA_USE_LINUX
+	# note: LUA_USE_LINUX is recommended for linux, osx, freebsd
 
 main.squished.lua : src/main.lua
 	(cd src && lua ../squish.lua)
