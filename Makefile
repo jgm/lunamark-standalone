@@ -1,11 +1,11 @@
 CC=gcc
 OBJS=lpeg.o slnunico.o
 
-embed: embed.c main.squished.lub.embed $(OBJS)
+lunamark: lunamark.c main.squished.lub.embed $(OBJS)
 	$(CC) -o $@ $< $(OBJS) -llua
 
-main.squished.lua : main.lua
-	lua squish.lua
+main.squished.lua : src/main.lua
+	(cd src && lua squish.lua)
 
 lpeg.o : lpeg.c lpeg.h
 
@@ -18,4 +18,4 @@ slnunico.o : slnunico.c slnudata.c
 	xxd -i $< > $@
 
 clean:
-	rm $(EMBEDS) $(OBJS) embed main.squished.lub.embed
+	rm $(lunamarkS) $(OBJS) lunamark main.squished.lub.embed
